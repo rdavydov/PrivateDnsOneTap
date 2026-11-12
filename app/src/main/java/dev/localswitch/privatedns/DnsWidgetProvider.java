@@ -16,6 +16,15 @@ import java.util.List;
 public final class DnsWidgetProvider extends AppWidgetProvider {
 
     @Override
+    public void onReceive(Context context, Intent intent) {
+        if (intent != null && Intent.ACTION_LOCALE_CHANGED.equals(intent.getAction())) {
+            updateAll(context);
+            return;
+        }
+        super.onReceive(context, intent);
+    }
+
+    @Override
     public void onUpdate(Context context, AppWidgetManager manager, int[] widgetIds) {
         for (int id : widgetIds) updateOne(context, manager, id);
     }
@@ -36,6 +45,7 @@ public final class DnsWidgetProvider extends AppWidgetProvider {
 
     static void updateOne(Context context, AppWidgetManager manager, int id) {
         context = context.getApplicationContext();
+        Context strings = LanguageSettings.context(context);
         Bundle options = manager.getAppWidgetOptions(id);
         int width = options == null ? 320
                 : options.getInt(AppWidgetManager.OPTION_APPWIDGET_MIN_WIDTH, 320);
@@ -58,37 +68,53 @@ public final class DnsWidgetProvider extends AppWidgetProvider {
         views.setTextViewText(R.id.widget_hostname, selected.hostname);
         if (!compact) {
             views.setTextViewText(R.id.widget_position,
-                    (selectedIndex + 1) + " / " + profiles.size() + " servers");
+                    strings.getResources().getQuantityString(R.plurals.widget_server_position,
+                            profiles.size(), selectedIndex + 1, profiles.size()));
+            views.setTextViewText(R.id.widget_title, strings.getString(R.string.widget_heading));
+            views.setTextViewText(R.id.widget_previous, strings.getString(R.string.widget_previous));
+            views.setContentDescription(R.id.widget_previous,
+                    strings.getString(R.string.widget_previous_description));
         }
+        views.setTextViewText(R.id.widget_next, strings.getString(compact
+                ? R.string.widget_next_symbol : R.string.widget_next));
+        views.setContentDescription(R.id.widget_next,
+                strings.getString(R.string.widget_next_description));
+        views.setContentDescription(R.id.widget_settings,
+                strings.getString(R.string.widget_edit_description));
+        views.setContentDescription(R.id.widget_power,
+                strings.getString(R.string.widget_toggle_description));
 
         String status;
         WidgetThemes.Status statusColor;
         String powerLabel;
         if (!permitted) {
-            status = "SETUP NEEDED";
+            status = strings.getString(compact ? R.string.widget_mini_status_setup
+                    : R.string.widget_status_setup);
             statusColor = WidgetThemes.Status.WARNING;
-            powerLabel = "SETUP";
+            powerLabel = strings.getString(R.string.widget_power_setup);
         } else if (state == DnsSettings.State.ON) {
-            status = "ACTIVE";
+            status = strings.getString(R.string.widget_status_active);
             statusColor = WidgetThemes.Status.SUCCESS;
-            powerLabel = "TURN OFF";
+            powerLabel = strings.getString(R.string.widget_power_disable);
         } else if (state == DnsSettings.State.OFF) {
-            status = "OFF";
+            status = strings.getString(R.string.widget_status_off);
             statusColor = WidgetThemes.Status.ERROR;
-            powerLabel = "TURN ON";
+            powerLabel = strings.getString(R.string.widget_power_enable);
         } else if (state == DnsSettings.State.OTHER) {
-            status = "OTHER DNS";
+            status = strings.getString(R.string.widget_status_other);
             statusColor = WidgetThemes.Status.WARNING;
-            powerLabel = "USE THIS";
+            powerLabel = strings.getString(R.string.widget_power_use);
         } else {
-            status = "AUTO";
+            status = strings.getString(R.string.widget_status_auto);
             statusColor = WidgetThemes.Status.WARNING;
-            powerLabel = "USE THIS";
+            powerLabel = strings.getString(R.string.widget_power_use);
         }
         WidgetThemes.status(views, false, statusColor, status);
         views.setTextViewText(R.id.widget_power, compact
-                ? (!permitted ? "SETUP" : state == DnsSettings.State.ON ? "OFF"
-                    : state == DnsSettings.State.OFF ? "ON" : "USE")
+                ? strings.getString(!permitted ? R.string.widget_mini_status_setup
+                    : state == DnsSettings.State.ON ? R.string.widget_power_short_off
+                    : state == DnsSettings.State.OFF ? R.string.widget_power_short_on
+                    : R.string.widget_power_short_use)
                 : powerLabel);
 
         Intent openApp = new Intent(context, MainActivity.class);

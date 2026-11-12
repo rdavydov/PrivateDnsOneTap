@@ -59,18 +59,18 @@ final class DnsProfiles {
                 // Malformed preferences should not crash the widget.
             }
         }
-        List<Profile> starting = defaultProfiles(prefs);
+        List<Profile> starting = defaultProfiles(context, prefs);
         // Persist migration so existing OneTap users keep their previously saved hostname.
         save(context, starting, 0, true);
         return Collections.unmodifiableList(starting);
     }
 
-    private static List<Profile> defaultProfiles(SharedPreferences prefs) {
+    private static List<Profile> defaultProfiles(Context context, SharedPreferences prefs) {
         List<Profile> initial = new ArrayList<>();
         String previous = prefs.getString(OLD_HOST, DnsSettings.DEFAULT_HOST);
         try {
             initial.add(new Profile(DnsSettings.DEFAULT_HOST.equalsIgnoreCase(previous)
-                    ? "DNS AI" : "My saved DNS", previous));
+                    ? "DNS AI" : LanguageSettings.context(context).getString(R.string.saved_dns_name), previous));
         } catch (IllegalArgumentException e) {
             initial.add(new Profile("DNS AI", DnsSettings.DEFAULT_HOST));
         }
@@ -134,26 +134,26 @@ final class DnsProfiles {
 
     static void select(Context context, int index) {
         List<Profile> list = all(context);
-        if (index < 0 || index >= list.size()) throw new IllegalArgumentException("Unknown DNS profile.");
+        if (index < 0 || index >= list.size()) throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_unknown_profile));
         save(context, list, index);
     }
 
     static void add(Context context, String name, String hostname) {
         List<Profile> list = new ArrayList<>(all(context));
-        if (list.size() >= MAX_PROFILES) throw new IllegalArgumentException("Maximum 30 DNS servers.");
+        if (list.size() >= MAX_PROFILES) throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_profiles_limit, MAX_PROFILES));
         Profile p = new Profile(name, hostname);
-        if (containsHost(list, p.hostname)) throw new IllegalArgumentException("That DNS hostname is already saved.");
+        if (containsHost(list, p.hostname)) throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_duplicate_host));
         list.add(p);
         save(context, list, selectedIndex(context));
     }
 
     static void update(Context context, int index, String name, String hostname) {
         List<Profile> list = new ArrayList<>(all(context));
-        if (index < 0 || index >= list.size()) throw new IllegalArgumentException("Unknown DNS profile.");
+        if (index < 0 || index >= list.size()) throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_unknown_profile));
         Profile changed = new Profile(name, hostname);
         for (int i = 0; i < list.size(); i++) {
             if (i != index && list.get(i).hostname.equalsIgnoreCase(changed.hostname)) {
-                throw new IllegalArgumentException("That DNS hostname is already saved.");
+                throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_duplicate_host));
             }
         }
         list.set(index, changed);
@@ -162,8 +162,8 @@ final class DnsProfiles {
 
     static void remove(Context context, int index) {
         List<Profile> list = new ArrayList<>(all(context));
-        if (list.size() <= 1) throw new IllegalArgumentException("Keep at least one DNS server.");
-        if (index < 0 || index >= list.size()) throw new IllegalArgumentException("Unknown DNS profile.");
+        if (list.size() <= 1) throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_keep_profile));
+        if (index < 0 || index >= list.size()) throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_unknown_profile));
         int selected = selectedIndex(context);
         list.remove(index);
         if (index < selected) selected--;
@@ -172,10 +172,10 @@ final class DnsProfiles {
     }
 
     private static String normalizeName(String name) {
-        if (name == null) throw new IllegalArgumentException("Enter a display name.");
+        if (name == null) throw Messages.invalid(R.string.error_name_required);
         String clean = name.trim();
         if (clean.isEmpty() || clean.length() > 32) {
-            throw new IllegalArgumentException("Display name must contain 1–32 characters.");
+            throw Messages.invalid(R.string.error_name_length);
         }
         return clean;
     }
@@ -191,7 +191,7 @@ final class DnsProfiles {
     private static void save(Context context, List<Profile> list, int selected,
                              boolean markProvidersMigrated) {
         if (list.isEmpty() || selected < 0 || selected >= list.size()) {
-            throw new IllegalArgumentException("Invalid DNS profiles.");
+            throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_profiles_invalid));
         }
         JSONArray json = new JSONArray();
         for (Profile p : list) {
@@ -200,7 +200,7 @@ final class DnsProfiles {
                 item.put("name", p.name);
                 item.put("host", p.hostname);
             } catch (JSONException e) {
-                throw new IllegalStateException("Could not serialize DNS profiles.", e);
+                throw new IllegalStateException(LanguageSettings.context(context).getString(R.string.error_profiles_serialize), e);
             }
             json.put(item);
         }
@@ -211,6 +211,6 @@ final class DnsProfiles {
                 .putString(OLD_HOST, list.get(selected).hostname);
         if (markProvidersMigrated) editor.putBoolean(PROVIDERS_MIGRATED, true);
         boolean result = editor.commit();
-        if (!result) throw new IllegalStateException("Could not save the DNS server list.");
+        if (!result) throw new IllegalStateException(LanguageSettings.context(context).getString(R.string.error_profiles_save));
     }
 }

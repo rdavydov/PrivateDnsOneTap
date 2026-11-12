@@ -97,7 +97,8 @@ public final class ShizukuControllerInstrumentedTest {
         instrumentation.runOnMainSync(() -> server.replyPermission(false));
         assertEquals(ShizukuPermissionController.State.DENIED, state.get());
         assertFalse(controller.canRequest());
-        assertTrue(message.get().contains("authorized apps"));
+        assertEquals(LanguageSettings.context(application).getString(
+                R.string.shizuku_state_denied_settings), message.get());
         instrumentation.runOnMainSync(controller::request);
         assertEquals(1, server.permissionRequests);
         assertEquals(0, server.bindRequests);
@@ -136,7 +137,8 @@ public final class ShizukuControllerInstrumentedTest {
         assertEquals(ShizukuPermissionController.State.GRANTING, state.get());
         assertEquals(1, server.bindRequests);
         await(ShizukuPermissionController.State.ERROR, 12_000);
-        assertTrue(message.get().contains("Timed out connecting"));
+        assertEquals(LanguageSettings.context(application).getString(
+                R.string.shizuku_error_bind_timeout), message.get());
         assertTrue(controller.canRequest());
         assertEquals(1, server.unbindRequests);
     }
@@ -151,7 +153,8 @@ public final class ShizukuControllerInstrumentedTest {
         attach(false);
         instrumentation.runOnMainSync(controller::request);
         await(ShizukuPermissionController.State.ERROR, 3_000);
-        assertTrue(message.get().contains("Android did not grant"));
+        assertEquals(LanguageSettings.context(application).getString(
+                R.string.shizuku_error_not_granted), message.get());
         assertEquals(1, server.unbindRequests);
         assertFalse(state.get() == ShizukuPermissionController.State.GRANTED);
     }

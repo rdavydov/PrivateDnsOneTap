@@ -26,30 +26,30 @@ final class DnsSettings {
 
     /** Converts DNS-over-TLS names to a safe canonical hostname (no URL, port, or raw IP). */
     static String normalizeHostname(String input) {
-        if (input == null) throw new IllegalArgumentException("Enter a DNS hostname.");
+        if (input == null) throw Messages.invalid(R.string.error_hostname_required);
         String name;
         try {
             name = IDN.toASCII(input.trim(), IDN.USE_STD3_ASCII_RULES)
                     .toLowerCase(Locale.ROOT);
         } catch (IllegalArgumentException exception) {
-            throw new IllegalArgumentException("Invalid DNS hostname. Do not include https:// or a port.");
+            throw Messages.invalid(R.string.error_hostname_format);
         }
         if (name.isEmpty() || name.length() > 253 || name.endsWith(".") || !name.contains(".")) {
-            throw new IllegalArgumentException("Use a hostname like dns.dns-ai.ru (without https:// or :853).");
+            throw Messages.invalid(R.string.error_hostname_example);
         }
         // A numeric IPv4 literal is not a DNS-over-TLS provider hostname.
         if (name.matches("[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+")) {
-            throw new IllegalArgumentException("Use a DNS hostname, not an IPv4 address.");
+            throw Messages.invalid(R.string.error_hostname_ip);
         }
         for (String label : name.split("\\.", -1)) {
             if (label.isEmpty() || label.length() > 63 || label.charAt(0) == '-'
                     || label.charAt(label.length() - 1) == '-') {
-                throw new IllegalArgumentException("Invalid DNS hostname label.");
+                throw Messages.invalid(R.string.error_hostname_label);
             }
             for (int i = 0; i < label.length(); i++) {
                 char c = label.charAt(i);
                 if (!(c >= 'a' && c <= 'z') && !(c >= '0' && c <= '9') && c != '-') {
-                    throw new IllegalArgumentException("Invalid DNS hostname characters.");
+                    throw Messages.invalid(R.string.error_hostname_characters);
                 }
             }
         }
@@ -77,7 +77,7 @@ final class DnsSettings {
 
     private static void requirePermission(Context context) {
         if (!hasPermission(context)) {
-            throw new SecurityException("Grant WRITE_SECURE_SETTINGS using ADB or Shizuku first.");
+            throw new SecurityException(LanguageSettings.context(context).getString(R.string.error_permission_required));
         }
     }
 
@@ -86,14 +86,14 @@ final class DnsSettings {
         requirePermission(context);
         String host = normalizeHostname(hostname);
         if (!Settings.Global.putString(context.getContentResolver(), HOST_KEY, host)) {
-            throw new IllegalStateException("Failed to write the Private DNS hostname.");
+            throw new IllegalStateException(LanguageSettings.context(context).getString(R.string.error_dns_write_host));
         }
         if (!Settings.Global.putString(context.getContentResolver(), MODE_KEY, "hostname")) {
-            throw new IllegalStateException("Failed to enable Manual Private DNS.");
+            throw new IllegalStateException(LanguageSettings.context(context).getString(R.string.error_dns_enable));
         }
         if (!"hostname".equals(getSystemMode(context))
                 || !host.equalsIgnoreCase(getSystemHost(context))) {
-            throw new IllegalStateException("Android did not accept the requested DNS settings.");
+            throw new IllegalStateException(LanguageSettings.context(context).getString(R.string.error_dns_rejected));
         }
     }
 
@@ -104,11 +104,11 @@ final class DnsSettings {
     static void disable(Context context) {
         requirePermission(context);
         if (!Settings.Global.putString(context.getContentResolver(), MODE_KEY, "off")) {
-            throw new IllegalStateException("Failed to turn off Private DNS.");
+            throw new IllegalStateException(LanguageSettings.context(context).getString(R.string.error_dns_disable));
         }
         // Do not clear the specifier: Honor's Manual input will still retain the last host.
         if (!"off".equals(getSystemMode(context))) {
-            throw new IllegalStateException("Android did not switch Private DNS off.");
+            throw new IllegalStateException(LanguageSettings.context(context).getString(R.string.error_dns_disable_rejected));
         }
     }
 
@@ -132,7 +132,7 @@ final class DnsSettings {
     static void selectAndApply(Context context, int index) {
         List<DnsProfiles.Profile> profiles = DnsProfiles.all(context);
         if (index < 0 || index >= profiles.size()) {
-            throw new IllegalArgumentException("Unknown DNS profile.");
+            throw new IllegalArgumentException(LanguageSettings.context(context).getString(R.string.error_unknown_profile));
         }
         applyHost(context, profiles.get(index).hostname);
         DnsProfiles.select(context, index);

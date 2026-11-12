@@ -21,7 +21,9 @@ public final class ToggleReceiver extends BroadcastReceiver {
             else if (ACTION_NEXT.equals(action)) DnsSettings.cycleAndApply(context, 1);
             else return;
         } catch (RuntimeException exception) {
-            Toast.makeText(context, "Private DNS: " + exception.getMessage(),
+            Context localized = LanguageSettings.context(context);
+            Toast.makeText(localized, localized.getString(R.string.dns_operation_error,
+                            Messages.message(localized, exception)),
                     Toast.LENGTH_LONG).show();
         } finally {
             DnsWidgetProvider.updateAll(context);

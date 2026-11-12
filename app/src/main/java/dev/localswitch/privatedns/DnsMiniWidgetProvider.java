@@ -31,6 +31,7 @@ public final class DnsMiniWidgetProvider extends AppWidgetProvider {
 
     static void updateOne(Context context, AppWidgetManager manager, int id) {
         context = context.getApplicationContext();
+        Context strings = LanguageSettings.context(context);
         RemoteViews views = new RemoteViews(context.getPackageName(),
                 WidgetThemes.layout(context, id, WidgetThemes.Layout.MINI));
         boolean allowed = DnsSettings.hasPermission(context);
@@ -40,23 +41,31 @@ public final class DnsMiniWidgetProvider extends AppWidgetProvider {
         String label;
         WidgetThemes.Status color;
         if (!allowed) {
-            label = "SETUP";
+            label = strings.getString(R.string.widget_mini_status_setup);
             color = WidgetThemes.Status.WARNING;
         } else if (state == DnsSettings.State.ON) {
-            label = "ON";
+            label = strings.getString(R.string.widget_mini_status_on);
             color = WidgetThemes.Status.SUCCESS;
         } else if (state == DnsSettings.State.OFF) {
-            label = "OFF";
+            label = strings.getString(R.string.widget_mini_status_off);
             color = WidgetThemes.Status.ERROR;
         } else if (state == DnsSettings.State.OTHER) {
-            label = "OTHER";
+            label = strings.getString(R.string.widget_mini_status_other);
             color = WidgetThemes.Status.WARNING;
         } else {
-            label = "AUTO";
+            label = strings.getString(R.string.widget_mini_status_auto);
             color = WidgetThemes.Status.WARNING;
         }
         WidgetThemes.status(views, true, color, label);
-        views.setTextViewText(R.id.mini_picker_area, profile.name + "  \u25be");
+        views.setTextViewText(R.id.mini_picker_area,
+                strings.getString(R.string.widget_profile_picker_label, profile.name));
+        views.setContentDescription(R.id.mini_picker_area,
+                strings.getString(R.string.widget_picker_description));
+        String toggleDescription = strings.getString(R.string.widget_mini_toggle_description);
+        views.setContentDescription(R.id.mini_power_area, toggleDescription);
+        views.setContentDescription(R.id.mini_status_success, toggleDescription);
+        views.setContentDescription(R.id.mini_status_error, toggleDescription);
+        views.setContentDescription(R.id.mini_status_warning, toggleDescription);
 
         Intent app = new Intent(context, MainActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP

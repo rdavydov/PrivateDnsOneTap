@@ -4,6 +4,8 @@ A lightweight Java / Android Studio project intended for **Honor Magic V2, Magic
 
 The app supports light and dark themes. The app and every placed widget default independently to **System default**, and each can be set to stay light or dark.
 
+The interface is available in **Russian and English**. Language defaults to the system, with a manual choice under **Settings → Language**.
+
 ## New in v3: a REAL 1x1 widget
 
 This version adds a separate Android widget provider named **Private DNS · Mini (1x1)**. It is designed to fit **one Nova Launcher grid cell**. The previous 2x1 and 4x2 layouts are still provided as **Private DNS Switcher**.
@@ -86,6 +88,12 @@ Every placed widget has its own saved choice. For example, one widget can always
 
 New and existing widgets without a saved preference use **System default**. Resizing preserves the instance's choice. Removing a widget deletes its preference; when Android delivers a widget-ID restoration, the preference is transferred to the replacement ID. Theme changes do not change DNS settings or saved profiles.
 
+## App language
+
+Under **Settings → Language**, choose **System default**, **Русский**, or **English**. The choice is saved and applies to screens, dialogs, validation messages, Shizuku setup, widget labels and accessibility descriptions. Saved DNS addresses and user-assigned profile names are preserved.
+
+System default uses Android language preferences; unsupported languages fall back to English. On Android 13 and newer, the in-app selection is synchronized with Android Settings → App languages. Android 9–12 save and apply the choice inside the app. Changing language preserves the app/widget theme choices and does not change DNS settings.
+
 ## Verify the real system state
 
 ```powershell
@@ -114,6 +122,7 @@ The app writes `private_dns_specifier` first, then switches `private_dns_mode` t
 - `MainActivity.java` — advanced profile editor, permission setup and appearance settings.
 - `ShizukuPermissionController.java` / `PermissionGrantService.java` — optional one-time Shizuku setup.
 - `ThemeSettings.java` / `ThemedActivity.java` — app-only appearance selection.
+- `LanguageSettings.java` — automatic/manual RU/EN selection and native Android app-language synchronization.
 - `WidgetThemes.java` — independent per-widget preferences, rendering and restoration.
 - `ToggleReceiver.java` — privileged one-tap On/Off action.
 - `res/layout/widget_private_dns_mini.xml` — small tile.
@@ -134,8 +143,9 @@ Build and lint with `gradlew.bat :app:assembleDebug :app:lintDebug`; run the And
 
 Validated on 2026-11-13 with JDK 21 and an Android API 37 emulator:
 
-- Debug APK build succeeded; Android Lint reported **0 errors** (84 warnings about hard-coded text, RTL and resource suggestions).
-- **24 instrumentation tests passed**: app/widget palettes and independence, widget ownership/deletion/ID restoration, editor recovery, DNS-list migration, and isolated Shizuku denial, disconnection, timeout and permission-verification failures.
+- Debug APK build succeeded; Android Lint reported **0 errors** (35 warnings, mainly RTL and resource suggestions).
+- **32 instrumentation tests passed**: app/widget palettes and independence, widget ownership/deletion/ID restoration, editor recovery, DNS-list migration, localized resources and native language selection, and isolated Shizuku denial, disconnection, timeout and permission-verification failures.
+- The eight language tests also passed with a Russian system locale. Manual RU/EN, native OS-side changes, returning to System default, all four language/light/dark combinations, and draft preservation were checked. Translation keys and format placeholders match across 166 English/Russian resources.
 - Official Shizuku 13.6.0 successfully granted the real system permission. Turning DNS off/on still worked after stopping Shizuku, and the temporary permission process exited.
 - Emulator launcher checks covered simultaneously placed widgets with different themes, preserving a forced theme when resizing to the compact layout, and system-theme changes after the app process was killed normally. Force-stopping an app is different: Android can mask its widgets until the app is opened again.
 

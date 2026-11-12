@@ -20,6 +20,13 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public final class PermissionGrantService extends IPermissionGrantService.Stub {
     private static final String APPLICATION_ID = "dev.localswitch.privatedns";
     private static final int OUTPUT_LIMIT = 4096;
+    static final String ERROR_UNSUPPORTED = "unsupported";
+    static final String ERROR_APP_MISSING = "app_missing";
+    static final String ERROR_BUSY = "busy";
+    static final String ERROR_TIMEOUT = "command_timeout";
+    static final String ERROR_REFUSED = "refused";
+    static final String ERROR_EXECUTE = "execute";
+    static final String ERROR_INTERRUPTED = "interrupted";
     private final PackageManager packageManager;
     private final AtomicBoolean running = new AtomicBoolean();
     private volatile java.lang.Process command;
@@ -36,19 +43,19 @@ public final class PermissionGrantService extends IPermissionGrantService.Stub {
 
     @Override
     public String grantWriteSecureSettings() {
-        if (packageManager == null) return "Update Shizuku to version 13 or newer and try again.";
+        if (packageManager == null) return ERROR_UNSUPPORTED;
 
         // Capture Binder identity before dispatching or clearing it: this process itself is shell/root.
         int callingUid = Binder.getCallingUid();
         try {
             if (callingUid != packageManager.getPackageUid(APPLICATION_ID, 0)) {
-                throw new SecurityException("Only Private DNS Switcher may request this permission.");
+                throw new SecurityException("Permission grant caller UID mismatch");
             }
         } catch (PackageManager.NameNotFoundException exception) {
-            return "Could not find Private DNS Switcher for this Android user.";
+            return ERROR_APP_MISSING;
         }
         int userId = UserHandle.getUserHandleForUid(callingUid).hashCode();
-        if (!running.compareAndSet(false, true)) return "A permission request is already running.";
+        if (!running.compareAndSet(false, true)) return ERROR_BUSY;
 
         ExecutorService outputReader = Executors.newSingleThreadExecutor();
         java.lang.Process process = null;
@@ -63,7 +70,7 @@ public final class PermissionGrantService extends IPermissionGrantService.Stub {
             Future<String> output = outputReader.submit(() -> readOutput(stream));
             if (!process.waitFor(10, TimeUnit.SECONDS)) {
                 process.destroyForcibly();
-                return "The Android permission command timed out. Try again or use ADB.";
+                return ERROR_TIMEOUT;
             }
             String detail;
             try {
@@ -72,15 +79,14 @@ public final class PermissionGrantService extends IPermissionGrantService.Stub {
                 detail = "";
             }
             if (process.exitValue() != 0) {
-                return "Android refused to grant the permission."
-                        + (detail.isEmpty() ? " Try the ADB command." : " " + detail);
+                return ERROR_REFUSED + (detail.isEmpty() ? "" : "\n" + detail);
             }
             return "";
         } catch (IOException exception) {
-            return "Could not execute the Android permission command: " + exception.getMessage();
+            return ERROR_EXECUTE + "\n" + exception.getMessage();
         } catch (InterruptedException exception) {
             Thread.currentThread().interrupt();
-            return "The permission request was interrupted. Try again.";
+            return ERROR_INTERRUPTED;
         } finally {
             command = null;
             if (process != null) {

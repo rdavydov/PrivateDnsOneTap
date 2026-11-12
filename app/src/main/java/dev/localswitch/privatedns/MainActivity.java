@@ -33,6 +33,7 @@ public final class MainActivity extends ThemedActivity {
     private Button shizukuButton;
     private Button openShizukuButton;
     private Button appThemeButton;
+    private Button languageButton;
     private Button widgetThemeButton;
     private ShizukuPermissionController shizuku;
     private ContentObserver dnsObserver;
@@ -52,8 +53,11 @@ public final class MainActivity extends ThemedActivity {
         shizukuButton = findViewById(R.id.shizuku_grant);
         openShizukuButton = findViewById(R.id.shizuku_open);
         appThemeButton = findViewById(R.id.app_theme);
+        languageButton = findViewById(R.id.app_language);
         widgetThemeButton = findViewById(R.id.widget_theme);
         appThemeButton.setOnClickListener(view -> ThemeSettings.showAppThemeDialog(this));
+        languageButton.setOnClickListener(view -> LanguageSettings.showDialog(this,
+                this::refreshAppearance));
         widgetThemeButton.setOnClickListener(view -> WidgetThemes.showDialog(this,
                 currentWidgetId(), this::refreshAppearance));
 
@@ -92,17 +96,17 @@ public final class MainActivity extends ThemedActivity {
         findViewById(R.id.add_profile).setOnClickListener(view -> showProfileEditor(-1));
         findViewById(R.id.enable_button).setOnClickListener(view -> runChange(() -> {
             DnsSettings.enable(this);
-            toast("Manual DNS enabled: " + DnsProfiles.selected(this).hostname);
+            toast(getString(R.string.main_dns_enabled, DnsProfiles.selected(this).hostname));
         }));
         findViewById(R.id.disable_button).setOnClickListener(view -> runChange(() -> {
             DnsSettings.disable(this);
-            toast("Private DNS switched off.");
+            toast(getString(R.string.main_dns_disabled));
         }));
         findViewById(R.id.copy_button).setOnClickListener(view -> {
             ClipboardManager manager = (ClipboardManager)
                     getSystemService(Context.CLIPBOARD_SERVICE);
-            manager.setPrimaryClip(ClipData.newPlainText("Private DNS ADB command", ADB_COMMAND));
-            toast("ADB command copied.");
+            manager.setPrimaryClip(ClipData.newPlainText(getString(R.string.main_adb_clip_label), ADB_COMMAND));
+            toast(getString(R.string.main_adb_copied));
         });
 
         dnsObserver = new ContentObserver(new Handler(Looper.getMainLooper())) {
@@ -141,8 +145,10 @@ public final class MainActivity extends ThemedActivity {
             profileList.addView(row, rowParams);
 
             TextView title = new TextView(this);
-            String suffix = isSelected ? (currentState == DnsSettings.State.ON ? "  • ACTIVE" : "  • SELECTED") : "";
-            title.setText(profile.name + suffix);
+            String titleText = isSelected ? getString(currentState == DnsSettings.State.ON
+                    ? R.string.main_profile_active : R.string.main_profile_selected, profile.name)
+                    : profile.name;
+            title.setText(titleText);
             title.setTextSize(17);
             title.setTextColor(getColor(R.color.app_text_primary));
             title.setTypeface(null, android.graphics.Typeface.BOLD);
@@ -162,23 +168,35 @@ public final class MainActivity extends ThemedActivity {
             row.addView(buttons);
 
             Button apply = new Button(this);
-            apply.setText(isSelected ? "APPLY" : "USE");
+            apply.setText(isSelected ? R.string.main_apply : R.string.main_use);
             apply.setAllCaps(false);
+            apply.setTextSize(12);
+            apply.setMinWidth(0);
+            apply.setMinimumWidth(0);
+            apply.setPadding(dp(4), 0, dp(4), 0);
             buttons.addView(apply, new LinearLayout.LayoutParams(0, dp(48), 1.3f));
             apply.setOnClickListener(view -> runChange(() -> {
                 DnsSettings.selectAndApply(this, index);
-                toast("Using " + DnsProfiles.selected(this).name);
+                toast(getString(R.string.main_profile_applied, DnsProfiles.selected(this).name));
             }));
 
             Button edit = new Button(this);
-            edit.setText("Edit");
+            edit.setText(R.string.main_edit);
             edit.setAllCaps(false);
+            edit.setTextSize(12);
+            edit.setMinWidth(0);
+            edit.setMinimumWidth(0);
+            edit.setPadding(dp(4), 0, dp(4), 0);
             buttons.addView(edit, new LinearLayout.LayoutParams(0, dp(48), 1.0f));
             edit.setOnClickListener(view -> showProfileEditor(index));
 
             Button delete = new Button(this);
-            delete.setText("Delete");
+            delete.setText(R.string.main_delete);
             delete.setAllCaps(false);
+            delete.setTextSize(12);
+            delete.setMinWidth(0);
+            delete.setMinimumWidth(0);
+            delete.setPadding(dp(4), 0, dp(4), 0);
             delete.setEnabled(profiles.size() > 1);
             buttons.addView(delete, new LinearLayout.LayoutParams(0, dp(48), 1.1f));
             delete.setOnClickListener(view -> confirmDelete(index));
@@ -195,29 +213,29 @@ public final class MainActivity extends ThemedActivity {
 
         EditText name = new EditText(this);
         name.setSingleLine(true);
-        name.setHint("Name (e.g. NextDNS)");
+        name.setHint(R.string.main_profile_name_hint);
         name.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
         name.setText(editing == null ? "" : editing.name);
         fields.addView(name, new LinearLayout.LayoutParams(-1, dp(55)));
 
         EditText hostname = new EditText(this);
         hostname.setSingleLine(true);
-        hostname.setHint("DNS-over-TLS hostname");
+        hostname.setHint(R.string.main_profile_host_hint);
         hostname.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_URI);
         hostname.setText(editing == null ? "" : editing.hostname);
         fields.addView(hostname, new LinearLayout.LayoutParams(-1, dp(55)));
 
         TextView hint = new TextView(this);
-        hint.setText("Hostname only, for example dns.google. No https://, IP address, or port.");
+        hint.setText(R.string.main_profile_host_help);
         hint.setTextColor(getColor(R.color.app_text_secondary));
         hint.setTextSize(12);
         fields.addView(hint);
 
         AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle(editing == null ? "Add DNS server" : "Edit DNS server")
+                .setTitle(editing == null ? R.string.main_add_title : R.string.main_edit_title)
                 .setView(fields)
-                .setNegativeButton("Cancel", (d, which) -> { })
-                .setPositiveButton("Save", null)
+                .setNegativeButton(android.R.string.cancel, (d, which) -> { })
+                .setPositiveButton(R.string.main_save, null)
                 .create();
         profileEditor = dialog;
         editorName = name;
@@ -240,13 +258,13 @@ public final class MainActivity extends ThemedActivity {
                         dialog.dismiss();
                         refreshAll();
                         DnsWidgetProvider.updateAll(this);
-                        toast("DNS profile saved. Tap Apply or use the widget to activate.");
+                        toast(getString(R.string.main_profile_saved));
                     } catch (IllegalArgumentException exception) {
                         // Invalid entry must NOT silently close the editor.
-                        hostname.setError(exception.getMessage());
-                        toast(exception.getMessage());
+                        hostname.setError(Messages.message(this, exception));
+                        toast(Messages.message(this, exception));
                     } catch (RuntimeException exception) {
-                        toast("Could not save: " + exception.getMessage());
+                        toast(getString(R.string.main_save_failed, Messages.message(this, exception)));
                     }
                 }));
         dialog.show();
@@ -256,16 +274,16 @@ public final class MainActivity extends ThemedActivity {
         List<DnsProfiles.Profile> list = DnsProfiles.all(this);
         if (index < 0 || index >= list.size()) return;
         new AlertDialog.Builder(this)
-                .setTitle("Delete " + list.get(index).name + "?")
-                .setMessage("This removes the saved profile; it does not change the active Android DNS setting.")
-                .setNegativeButton("Cancel", null)
-                .setPositiveButton("Delete", (dialog, which) -> {
+                .setTitle(getString(R.string.main_delete_title, list.get(index).name))
+                .setMessage(R.string.main_delete_message)
+                .setNegativeButton(android.R.string.cancel, null)
+                .setPositiveButton(R.string.main_delete, (dialog, which) -> {
                     try {
                         DnsProfiles.remove(this, index);
                         refreshAll();
                         DnsWidgetProvider.updateAll(this);
                     } catch (RuntimeException exception) {
-                        toast(exception.getMessage());
+                        toast(Messages.message(this, exception));
                     }
                 }).show();
     }
@@ -274,7 +292,7 @@ public final class MainActivity extends ThemedActivity {
         try {
             operation.run();
         } catch (RuntimeException exception) {
-            toast("DNS change failed: " + exception.getMessage());
+            toast(getString(R.string.main_dns_change_failed, Messages.message(this, exception)));
         } finally {
             refreshAll();
             DnsWidgetProvider.updateAll(this);
@@ -293,6 +311,8 @@ public final class MainActivity extends ThemedActivity {
     }
 
     private void refreshAppearance() {
+        languageButton.setText(getString(R.string.language_current,
+                LanguageSettings.getMode(this).label(this)));
         appThemeButton.setText(getString(R.string.app_theme_current,
                 ThemeSettings.getAppMode(this).label(this)));
         int id = currentWidgetId();
@@ -314,19 +334,19 @@ public final class MainActivity extends ThemedActivity {
         switch (state) {
             case ON:
                 DnsProfiles.Profile profile = DnsProfiles.selected(this);
-                description = "MANUAL: " + profile.name + " (" + profile.hostname + ")";
+                description = getString(R.string.main_status_manual, profile.name, profile.hostname);
                 color = getColor(R.color.app_success);
                 break;
             case OFF:
-                description = "OFF (saved selection: " + DnsProfiles.selected(this).name + ")";
+                description = getString(R.string.main_status_off, DnsProfiles.selected(this).name);
                 color = getColor(R.color.app_error);
                 break;
             case OTHER:
-                description = "MANUAL: " + DnsSettings.getSystemHost(this) + " (not the selected profile)";
+                description = getString(R.string.main_status_other, DnsSettings.getSystemHost(this));
                 color = getColor(R.color.app_warning);
                 break;
             default:
-                description = "AUTOMATIC / system default";
+                description = getString(R.string.main_status_auto);
                 color = getColor(R.color.app_warning);
                 break;
         }

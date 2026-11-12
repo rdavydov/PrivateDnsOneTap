@@ -27,7 +27,7 @@
                 android:id="@+id/widget_status_success"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="OFF"
+                android:text="@string/widget_status_off"
                 android:textColor="?attr/widgetSuccess"
                 android:textSize="9sp"
                 android:textStyle="bold"
@@ -37,7 +37,7 @@
                 android:id="@+id/widget_status_error"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="OFF"
+                android:text="@string/widget_status_off"
                 android:textColor="?attr/widgetError"
                 android:textSize="9sp"
                 android:textStyle="bold"
@@ -47,7 +47,7 @@
                 android:id="@+id/widget_status_warning"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="OFF"
+                android:text="@string/widget_status_off"
                 android:textColor="?attr/widgetWarning"
                 android:textSize="9sp"
                 android:textStyle="bold"
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="DNS AI"
+            android:text="@string/widget_profile_preview"
             android:textColor="?attr/widgetTextPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -70,7 +70,7 @@
             android:layout_height="wrap_content"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="dns.dns-ai.ru"
+            android:text="@string/widget_host_preview"
             android:textColor="?attr/widgetTextSecondary"
             android:textSize="9sp" />
     </LinearLayout>
@@ -80,9 +80,9 @@
         android:layout_height="48dp"
         android:layout_marginLeft="5dp"
         android:background="@drawable/widget_button_primary"
-        android:contentDescription="Enable or disable selected Private DNS server"
+        android:contentDescription="@string/widget_toggle_description"
         android:gravity="center"
-        android:text="ON"
+        android:text="@string/widget_power_short_on"
         android:textColor="?attr/widgetTextOnPrimary"
         android:textSize="9sp"
         android:textStyle="bold" />
@@ -95,9 +95,9 @@
             android:layout_width="39dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:contentDescription="Apply next DNS server"
+            android:contentDescription="@string/widget_next_description"
             android:gravity="center"
-            android:text="▶"
+            android:text="@string/widget_next_symbol"
             android:textColor="?attr/widgetTextPrimary"
             android:textSize="19sp" />
         <TextView
@@ -105,9 +105,9 @@
             android:layout_width="39dp"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:contentDescription="Edit DNS servers"
+            android:contentDescription="@string/widget_edit_description"
             android:gravity="center"
-            android:text="⚙"
+            android:text="@string/widget_settings_symbol"
             android:textColor="?attr/widgetTextSecondary"
             android:textSize="17sp" />
     </LinearLayout>

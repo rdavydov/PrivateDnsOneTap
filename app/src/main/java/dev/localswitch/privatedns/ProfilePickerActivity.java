@@ -46,19 +46,19 @@ public final class ProfilePickerActivity extends ThemedActivity {
         root.setPadding(dp(14), dp(14), dp(14), dp(12));
         root.setBackground(shape(getColor(R.color.picker_background), 20));
 
-        TextView title = text("Private DNS", 20, primaryText, true);
+        TextView title = text(getString(R.string.picker_title), 20, primaryText, true);
         root.addView(title);
         String detail;
-        if (!permitted) detail = "Grant permission using ADB or Shizuku to switch DNS";
-        else if (state == DnsSettings.State.ON) detail = "ON  ·  " + profiles.get(selected).name;
-        else if (state == DnsSettings.State.OFF) detail = "OFF  ·  saved: " + profiles.get(selected).name;
-        else if (state == DnsSettings.State.OTHER) detail = "MANUAL  ·  another DNS hostname is active";
-        else detail = "AUTO  ·  selected: " + profiles.get(selected).name;
+        if (!permitted) detail = getString(R.string.picker_permission_required);
+        else if (state == DnsSettings.State.ON) detail = getString(R.string.picker_state_on, profiles.get(selected).name);
+        else if (state == DnsSettings.State.OFF) detail = getString(R.string.picker_state_off, profiles.get(selected).name);
+        else if (state == DnsSettings.State.OTHER) detail = getString(R.string.picker_state_other);
+        else detail = getString(R.string.picker_state_auto, profiles.get(selected).name);
         TextView subtitle = text(detail, 12, secondaryText, false);
         subtitle.setPadding(0, dp(2), 0, dp(10));
         root.addView(subtitle);
 
-        TextView label = text("CHOOSE SERVER", 11, secondaryText, true);
+        TextView label = text(getString(R.string.picker_choose_server), 11, secondaryText, true);
         label.setPadding(dp(3), 0, 0, dp(4));
         root.addView(label);
 
@@ -101,7 +101,8 @@ public final class ProfilePickerActivity extends ThemedActivity {
             indicator.setGravity(Gravity.CENTER);
             row.addView(indicator, new LinearLayout.LayoutParams(dp(31), dp(38)));
 
-            row.setContentDescription("Activate " + profile.name + ", " + profile.hostname);
+            row.setContentDescription(getString(R.string.picker_activate_description,
+                    profile.name, profile.hostname));
             row.setFocusable(true);
             row.setOnClickListener(v -> runOperation(() -> DnsSettings.selectAndApply(this, index)));
         }
@@ -118,14 +119,15 @@ public final class ProfilePickerActivity extends ThemedActivity {
         LinearLayout.LayoutParams controlParams = new LinearLayout.LayoutParams(-1, dp(47));
         controlParams.topMargin = dp(5);
         root.addView(controls, controlParams);
-        addAction(controls, "‹ Prev", R.color.picker_action_secondary,
+        addAction(controls, getString(R.string.picker_previous), R.color.picker_action_secondary,
                 () -> DnsSettings.cycleAndApply(this, -1));
-        addAction(controls, state == DnsSettings.State.ON ? "Off" : "On", R.color.picker_action_primary,
+        addAction(controls, getString(state == DnsSettings.State.ON
+                        ? R.string.picker_disable : R.string.picker_enable), R.color.picker_action_primary,
                 () -> {
                     if (state == DnsSettings.State.ON) DnsSettings.disable(this);
                     else DnsSettings.enable(this);
                 });
-        addAction(controls, "Next ›", R.color.picker_action_secondary,
+        addAction(controls, getString(R.string.picker_next), R.color.picker_action_secondary,
                 () -> DnsSettings.cycleAndApply(this, 1));
 
         if (ownedWidget) {
@@ -139,13 +141,13 @@ public final class ProfilePickerActivity extends ThemedActivity {
             root.addView(appearance);
         }
 
-        TextView manage = text(permitted ? "Manage DNS profiles  ⚙" : "Grant permission / Manage  ⚙",
+        TextView manage = text(getString(permitted ? R.string.picker_manage : R.string.picker_setup_manage),
                 13, secondaryText, true);
         manage.setGravity(Gravity.CENTER);
         manage.setPadding(dp(3), dp(8), dp(3), dp(3));
         manage.setMinimumHeight(dp(44));
         manage.setFocusable(true);
-        manage.setContentDescription("Open the app to add, edit, or delete DNS servers");
+        manage.setContentDescription(getString(R.string.picker_manage_description));
         manage.setOnClickListener(v -> {
             Intent intent = new Intent(this, MainActivity.class);
             if (ownedWidget) intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
@@ -179,7 +181,8 @@ public final class ProfilePickerActivity extends ThemedActivity {
             DnsWidgetProvider.updateAll(this);
             finish(); // Return immediately to Nova instead of opening a full-screen app.
         } catch (RuntimeException error) {
-            Toast.makeText(this, "Private DNS: " + error.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, getString(R.string.picker_operation_failed,
+                    Messages.message(this, error)), Toast.LENGTH_LONG).show();
             DnsWidgetProvider.updateAll(this);
             render(); // Keep the picker visible for a retry or to open Setup.
         }

@@ -136,7 +136,8 @@ public final class DnsProfilesInstrumentedTest {
         assertEquals(Arrays.asList("legacy.example.org", "eu.geohide.ru", "dns.comss.one",
                 "one.one.one.one", "dns.google"), hosts());
         assertEquals("legacy.example.org", DnsProfiles.selected(context).hostname);
-        assertEquals("My saved DNS", DnsProfiles.selected(context).name);
+        assertEquals(LanguageSettings.context(context).getString(R.string.saved_dns_name),
+                DnsProfiles.selected(context).name);
     }
 
     private void seed(int selected, JSONObject... profiles) {

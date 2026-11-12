@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="appearance_title">Appearance</string>
+    <string name="appearance_title">Settings</string>
     <string name="app_theme_current">App theme: %1$s</string>
     <string name="this_widget_theme_current">This widget theme: %1$s</string>
     <string name="widget_theme_hint">Each widget has its own theme. Open its gear button, or tap the mini widget\'s bottom label and choose Widget theme.</string>
