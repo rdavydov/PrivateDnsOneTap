@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="widgetBackground_light">#FFFFFF</color>
+    <color name="widgetStroke_light">#C8D7E7</color>
+    <color name="widgetPowerBackground_light">#EEF3FA</color>
+    <color name="widgetPickerBackground_light">#DCEAF9</color>
+    <color name="widgetButtonPrimary_light">#2868C9</color>
+    <color name="widgetButtonSecondary_light">#E2EBF7</color>
+    <color name="widgetTextPrimary_light">#152A43</color>
+    <color name="widgetTextSecondary_light">#425E7C</color>
+    <color name="widgetTextMuted_light">#526983</color>
+    <color name="widgetTextOnPrimary_light">#FFFFFF</color>
+    <color name="widgetSuccess_light">#10754A</color>
+    <color name="widgetError_light">#AD3535</color>
+    <color name="widgetWarning_light">#855609</color>
+    <color name="widgetBackground_dark">#152B46</color>
+    <color name="widgetStroke_dark">#31516C</color>
+    <color name="widgetPowerBackground_dark">#1F3C56</color>
+    <color name="widgetPickerBackground_dark">#315574</color>
+    <color name="widgetButtonPrimary_dark">#326CDA</color>
+    <color name="widgetButtonSecondary_dark">#274661</color>
+    <color name="widgetTextPrimary_dark">#F8FBFF</color>
+    <color name="widgetTextSecondary_dark">#D9E7F6</color>
+    <color name="widgetTextMuted_dark">#B5CFE3</color>
+    <color name="widgetTextOnPrimary_dark">#FFFFFF</color>
+    <color name="widgetSuccess_dark">#74EFB1</color>
+    <color name="widgetError_dark">#FFA49D</color>
+    <color name="widgetWarning_dark">#FFCF77</color>
+</resources>

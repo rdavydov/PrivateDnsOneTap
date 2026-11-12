@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_system">System default</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="app_theme_title">App theme</string>
+    <string name="widget_theme_title">Widget theme</string>
+    <string name="theme_cancel">Cancel</string>
+    <string name="picker_widget_theme">Widget theme: %1$s</string>
+</resources>

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Genuine 1x1 tile. Tapping upper part toggles; bottom label opens DNS picker. -->
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/mini_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/widget_background"
+    android:orientation="vertical"
+    android:padding="3dp">
+    <FrameLayout
+        android:id="@+id/mini_power_area"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/widget_mini_power_background">
+        <TextView
+            android:id="@+id/mini_status_success"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Toggle Private DNS on or off"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="OFF"
+            android:textColor="?attr/widgetSuccess"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/mini_status_error"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Toggle Private DNS on or off"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="OFF"
+            android:textColor="?attr/widgetError"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
+        <TextView
+            android:id="@+id/mini_status_warning"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="Toggle Private DNS on or off"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="OFF"
+            android:textColor="?attr/widgetWarning"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="visible" />
+    </FrameLayout>
+    <TextView
+        android:id="@+id/mini_picker_area"
+        android:layout_width="match_parent"
+        android:layout_height="21dp"
+        android:layout_marginTop="2dp"
+        android:background="@drawable/widget_mini_picker_background"
+        android:contentDescription="Open DNS profile picker"
+        android:ellipsize="end"
+        android:gravity="center"
+        android:maxLines="1"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:text="DNS AI  ▾"
+        android:textColor="?attr/widgetTextPrimary"
+        android:textSize="9sp"
+        android:textStyle="bold" />
+</LinearLayout>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="WidgetThemeLightBase" parent="android:style/Theme.Material.Light.NoActionBar">
+        <item name="widgetBackground">@color/widgetBackground_light</item>
+        <item name="widgetStroke">@color/widgetStroke_light</item>
+        <item name="widgetPowerBackground">@color/widgetPowerBackground_light</item>
+        <item name="widgetPickerBackground">@color/widgetPickerBackground_light</item>
+        <item name="widgetButtonPrimary">@color/widgetButtonPrimary_light</item>
+        <item name="widgetButtonSecondary">@color/widgetButtonSecondary_light</item>
+        <item name="widgetTextPrimary">@color/widgetTextPrimary_light</item>
+        <item name="widgetTextSecondary">@color/widgetTextSecondary_light</item>
+        <item name="widgetTextMuted">@color/widgetTextMuted_light</item>
+        <item name="widgetTextOnPrimary">@color/widgetTextOnPrimary_light</item>
+        <item name="widgetSuccess">@color/widgetSuccess_light</item>
+        <item name="widgetError">@color/widgetError_light</item>
+        <item name="widgetWarning">@color/widgetWarning_light</item>
+    </style>
+    <style name="WidgetThemeDarkBase" parent="android:style/Theme.Material.NoActionBar">
+        <item name="widgetBackground">@color/widgetBackground_dark</item>
+        <item name="widgetStroke">@color/widgetStroke_dark</item>
+        <item name="widgetPowerBackground">@color/widgetPowerBackground_dark</item>
+        <item name="widgetPickerBackground">@color/widgetPickerBackground_dark</item>
+        <item name="widgetButtonPrimary">@color/widgetButtonPrimary_dark</item>
+        <item name="widgetButtonSecondary">@color/widgetButtonSecondary_dark</item>
+        <item name="widgetTextPrimary">@color/widgetTextPrimary_dark</item>
+        <item name="widgetTextSecondary">@color/widgetTextSecondary_dark</item>
+        <item name="widgetTextMuted">@color/widgetTextMuted_dark</item>
+        <item name="widgetTextOnPrimary">@color/widgetTextOnPrimary_dark</item>
+        <item name="widgetSuccess">@color/widgetSuccess_dark</item>
+        <item name="widgetError">@color/widgetError_dark</item>
+        <item name="widgetWarning">@color/widgetWarning_dark</item>
+    </style>
+    <style name="WidgetTheme.Light" parent="WidgetThemeLightBase" />
+    <style name="WidgetTheme.Dark" parent="WidgetThemeDarkBase" />
+    <style name="WidgetTheme.System" parent="WidgetTheme.Light" />
+</resources>

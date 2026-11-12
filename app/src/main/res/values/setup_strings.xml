@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="appearance_title">Appearance</string>
+    <string name="app_theme_current">App theme: %1$s</string>
+    <string name="this_widget_theme_current">This widget theme: %1$s</string>
+    <string name="widget_theme_hint">Each widget has its own theme. Open its gear button, or tap the mini widget\'s bottom label and choose Widget theme.</string>
+    <string name="permission_granted">System permission: GRANTED</string>
+    <string name="permission_missing">System permission: MISSING. Grant it once through Shizuku or ADB below.</string>
+    <string name="permission_setup_title">One-time system permission</string>
+    <string name="shizuku_help">If Shizuku is installed, start it and grant access below. The app and widgets work without Shizuku after the system permission is granted.</string>
+    <string name="shizuku_grant">Grant through Shizuku</string>
+    <string name="shizuku_granting">Granting permission…</string>
+    <string name="shizuku_open">Open Shizuku</string>
+    <string name="shizuku_cannot_open">Could not open Shizuku. Open it from your launcher.</string>
+    <string name="adb_setup_title">Or grant through ADB (Windows)</string>
+</resources>

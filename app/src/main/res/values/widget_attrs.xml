@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="widgetBackground" format="color" />
+    <attr name="widgetStroke" format="color" />
+    <attr name="widgetPowerBackground" format="color" />
+    <attr name="widgetPickerBackground" format="color" />
+    <attr name="widgetButtonPrimary" format="color" />
+    <attr name="widgetButtonSecondary" format="color" />
+    <attr name="widgetTextPrimary" format="color" />
+    <attr name="widgetTextSecondary" format="color" />
+    <attr name="widgetTextMuted" format="color" />
+    <attr name="widgetTextOnPrimary" format="color" />
+    <attr name="widgetSuccess" format="color" />
+    <attr name="widgetError" format="color" />
+    <attr name="widgetWarning" format="color" />
+</resources>

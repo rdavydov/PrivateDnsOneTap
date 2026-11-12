@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/app_background"
+    android:clipToPadding="false"
+    android:fillViewport="true"
+    android:fitsSystemWindows="true">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Private DNS Switcher"
+            android:textColor="@color/app_text_primary"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="Save multiple DNS servers and switch between them from a Nova Launcher widget."
+            android:textColor="@color/app_text_secondary"
+            android:textSize="14sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ACTUAL ANDROID PRIVATE DNS"
+                android:textColor="@color/app_text_secondary"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/dns_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Checking..."
+                android:textColor="@color/app_text_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+            <TextView
+                android:id="@+id/permission_status"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:text="Checking permission..."
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/card_background"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/appearance_title"
+                android:textColor="@color/app_text_primary"
+                android:textSize="17sp"
+                android:textStyle="bold" />
+            <Button
+                android:id="@+id/app_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/widget_theme"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+            <TextView
+                android:id="@+id/widget_theme_hint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/widget_theme_hint"
+                android:textColor="@color/app_text_secondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Saved DNS servers"
+            android:textColor="@color/app_text_primary"
+            android:textSize="19sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="12dp"
+            android:text="Use = switch immediately. Edit/Save = keep changes for later. Widget arrows apply the next/previous server immediately."
+            android:textColor="@color/app_text_secondary"
+            android:textSize="13sp" />
+        <LinearLayout
+            android:id="@+id/profiles_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+        <Button
+            android:id="@+id/add_profile"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="+ Add DNS server"
+            android:textAllCaps="false" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/enable_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Enable selected"
+                android:textAllCaps="false" />
+            <Button
+                android:id="@+id/disable_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Private DNS OFF"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="23dp"
+            android:text="@string/permission_setup_title"
+            android:textColor="@color/app_text_primary"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="@string/shizuku_help"
+            android:textColor="@color/app_text_secondary"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/shizuku_status"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/app_text_secondary"
+            android:textSize="13sp"
+            android:accessibilityLiveRegion="polite" />
+        <Button
+            android:id="@+id/shizuku_grant"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shizuku_grant"
+            android:textAllCaps="false" />
+        <Button
+            android:id="@+id/shizuku_open"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/shizuku_open"
+            android:textAllCaps="false"
+            android:visibility="gone" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/adb_setup_title"
+            android:textColor="@color/app_text_primary"
+            android:textSize="15sp"
+            android:textStyle="bold" />        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Enable USB debugging, connect your Honor, authorize the computer, and run this command. Already granted in v1? No need to grant again if the APK updates the same signed installation."
+            android:textColor="@color/app_text_secondary"
+            android:textSize="13sp" />
+        <TextView
+            android:id="@+id/adb_command"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/code_background"
+            android:padding="13dp"
+            android:textColor="@color/code_text"
+            android:textIsSelectable="true"
+            android:textSize="12sp"
+            android:typeface="monospace" />
+        <Button
+            android:id="@+id/copy_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Copy ADB command"
+            android:textAllCaps="false" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:paddingBottom="20dp"
+            android:text="Nova Launcher: long-press home screen → Widgets → Private DNS Switcher. Recommended 4×2; resize to 2×1 for compact mode. The app makes real system changes and does not use a VPN."
+            android:textColor="@color/app_text_secondary"
+            android:textSize="13sp" />
+    </LinearLayout>
+</ScrollView>

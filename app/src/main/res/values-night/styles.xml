@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppThemeBase" parent="android:style/Theme.Material.NoActionBar">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">@color/app_accent</item>
+        <item name="android:colorBackground">@color/app_background</item>
+        <item name="android:windowBackground">@color/app_background</item>
+        <item name="android:textColorPrimary">@color/app_text_primary</item>
+        <item name="android:textColorSecondary">@color/app_text_secondary</item>
+        <item name="android:windowLightStatusBar">@bool/app_light_system_bars</item>
+        <item name="android:statusBarColor">@color/app_background</item>
+        <item name="android:navigationBarColor">@color/app_background</item>
+        <item name="android:windowLightNavigationBar">@bool/app_light_system_bars</item>
+    </style>
+    <style name="DnsPickerThemeBase" parent="android:style/Theme.Material.Dialog">
+        <item name="android:fontFamily">sans</item>
+        <item name="android:colorAccent">@color/app_accent</item>
+        <item name="android:colorBackground">@color/app_surface</item>
+        <item name="android:textColorPrimary">@color/app_text_primary</item>
+        <item name="android:textColorSecondary">@color/app_text_secondary</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">true</item>
+    </style>
+    <style name="AppTheme" parent="AppThemeBase" />
+    <style name="DnsPickerTheme" parent="DnsPickerThemeBase" />
+</resources>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="app_background">#F4F7FC</color>
+    <color name="app_surface">#FFFFFF</color>
+    <color name="app_text_primary">#152A43</color>
+    <color name="app_text_secondary">#526983</color>
+    <color name="app_success">#118453</color>
+    <color name="app_error">#AA4241</color>
+    <color name="app_warning">#A47023</color>
+    <color name="app_accent">#2876EC</color>
+    <color name="code_background">#152B46</color>
+    <color name="code_text">#D7F6E9</color>
+    <color name="picker_background">#FFFFFF</color>
+    <color name="picker_row">#EEF3FA</color>
+    <color name="picker_row_selected">#DCEAF9</color>
+    <color name="picker_action_primary">#D6E8FA</color>
+    <color name="picker_action_secondary">#E7EFF9</color>
+    <bool name="app_light_system_bars">true</bool>
+</resources>
