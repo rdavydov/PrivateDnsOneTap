@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_intro">Save multiple DNS servers and switch between them from a Nova Launcher widget.</string>
+    <string name="main_actual_dns_heading">ACTUAL ANDROID PRIVATE DNS</string>
+    <string name="main_checking">Checking…</string>
+    <string name="main_checking_permission">Checking permission…</string>
+    <string name="main_saved_profiles">Saved DNS servers</string>
+    <string name="main_profiles_help">Use = switch immediately. Edit/Save = keep changes for later. Widget arrows apply the next/previous server immediately.</string>
+    <string name="main_add_profile">+ Add DNS server</string>
+    <string name="main_enable_selected">Enable selected</string>
+    <string name="main_disable_dns">Private DNS OFF</string>
+    <string name="main_adb_help">Enable USB debugging, connect your phone, authorize the computer, and run this command. A permission granted to an existing installation is preserved when updating with the same signing key.</string>
+    <string name="main_copy_adb">Copy ADB command</string>
+    <string name="main_widget_help">Nova Launcher: long-press the home screen → Widgets → Private DNS Switcher. Choose the Mini 1×1 widget, or resize the larger widget for compact mode. The app changes the real system DNS setting and does not use a VPN.</string>
+    <string name="main_dns_enabled">Manual DNS enabled: %1$s</string>
+    <string name="main_dns_disabled">Private DNS switched off.</string>
+    <string name="main_adb_clip_label">Private DNS ADB command</string>
+    <string name="main_adb_copied">ADB command copied.</string>
+    <string name="main_profile_active">%1$s  • ACTIVE</string>
+    <string name="main_profile_selected">%1$s  • SELECTED</string>
+    <string name="main_apply">APPLY</string>
+    <string name="main_use">USE</string>
+    <string name="main_edit">Edit</string>
+    <string name="main_delete">Delete</string>
+    <string name="main_profile_applied">Using %1$s</string>
+    <string name="main_profile_name_hint">Name (e.g. NextDNS)</string>
+    <string name="main_profile_host_hint">DNS-over-TLS hostname</string>
+    <string name="main_profile_host_help">Hostname only, for example dns.google. No https://, IP address, or port.</string>
+    <string name="main_add_title">Add DNS server</string>
+    <string name="main_edit_title">Edit DNS server</string>
+    <string name="main_save">Save</string>
+    <string name="main_profile_saved">DNS profile saved. Tap Apply or use the widget to activate.</string>
+    <string name="main_save_failed">Could not save: %1$s</string>
+    <string name="main_delete_title">Delete %1$s?</string>
+    <string name="main_delete_message">This removes the saved profile; it does not change the active Android DNS setting.</string>
+    <string name="main_dns_change_failed">DNS change failed: %1$s</string>
+    <string name="main_status_manual">MANUAL: %1$s (%2$s)</string>
+    <string name="main_status_off">OFF (saved selection: %1$s)</string>
+    <string name="main_status_other">MANUAL: %1$s (not the selected profile)</string>
+    <string name="main_status_auto">AUTOMATIC / system default</string>
+</resources>

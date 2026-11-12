@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="main_intro">Сохраняйте DNS-серверы и переключайте их с виджета на рабочем столе.</string>
+    <string name="main_actual_dns_heading">ТЕКУЩИЙ ЧАСТНЫЙ DNS ANDROID</string>
+    <string name="main_checking">Проверка…</string>
+    <string name="main_checking_permission">Проверка разрешения…</string>
+    <string name="main_saved_profiles">Сохранённые DNS-серверы</string>
+    <string name="main_profiles_help">«Выбрать» сразу включает сервер. «Изменить» и «Сохранить» меняют профиль без включения. Стрелки виджета сразу включают предыдущий или следующий сервер.</string>
+    <string name="main_add_profile">+ Добавить DNS-сервер</string>
+    <string name="main_enable_selected">Включить выбранный</string>
+    <string name="main_disable_dns">Выключить DNS</string>
+    <string name="main_adb_help">Включите отладку по USB, подключите телефон, разрешите доступ компьютеру и выполните команду. При обновлении приложения с тем же ключом подписи выданное разрешение сохраняется.</string>
+    <string name="main_copy_adb">Копировать команду ADB</string>
+    <string name="main_widget_help">Nova Launcher: удерживайте свободное место на рабочем столе → Виджеты → Переключатель DNS. Выберите мини-виджет 1×1 или уменьшите большой виджет для компактного режима. Приложение меняет системный DNS и не использует VPN.</string>
+    <string name="main_dns_enabled">Включён частный DNS: %1$s</string>
+    <string name="main_dns_disabled">Частный DNS выключен.</string>
+    <string name="main_adb_clip_label">Команда ADB для частного DNS</string>
+    <string name="main_adb_copied">Команда ADB скопирована.</string>
+    <string name="main_profile_active">%1$s  • ВКЛЮЧЁН</string>
+    <string name="main_profile_selected">%1$s  • ВЫБРАН</string>
+    <string name="main_apply">Применить</string>
+    <string name="main_use">Выбрать</string>
+    <string name="main_edit">Изменить</string>
+    <string name="main_delete">Удалить</string>
+    <string name="main_profile_applied">Включён профиль «%1$s»</string>
+    <string name="main_profile_name_hint">Название (например, NextDNS)</string>
+    <string name="main_profile_host_hint">Имя сервера DNS-over-TLS</string>
+    <string name="main_profile_host_help">Только имя сервера, например dns.google. Без https://, IP-адреса и порта.</string>
+    <string name="main_add_title">Добавить DNS-сервер</string>
+    <string name="main_edit_title">Изменить DNS-сервер</string>
+    <string name="main_save">Сохранить</string>
+    <string name="main_profile_saved">Профиль DNS сохранён. Нажмите «Применить» или используйте виджет для включения.</string>
+    <string name="main_save_failed">Не удалось сохранить: %1$s</string>
+    <string name="main_delete_title">Удалить «%1$s»?</string>
+    <string name="main_delete_message">Будет удалён только сохранённый профиль. Текущая настройка DNS Android не изменится.</string>
+    <string name="main_dns_change_failed">Не удалось изменить DNS: %1$s</string>
+    <string name="main_status_manual">ЧАСТНЫЙ DNS: %1$s (%2$s)</string>
+    <string name="main_status_off">ВЫКЛЮЧЕН (выбран профиль: %1$s)</string>
+    <string name="main_status_other">ЧАСТНЫЙ DNS: %1$s (другой профиль)</string>
+    <string name="main_status_auto">АВТОМАТИЧЕСКИ / системная настройка</string>
+</resources>

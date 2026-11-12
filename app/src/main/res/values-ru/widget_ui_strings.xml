@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="picker_title">Частный DNS</string>
+    <string name="picker_permission_required">Для смены DNS выдайте разрешение через ADB или Shizuku</string>
+    <string name="picker_state_on">ВКЛ · %1$s</string>
+    <string name="picker_state_off">ВЫКЛ · сохранён: %1$s</string>
+    <string name="picker_state_other">ВРУЧНУЮ · активен другой DNS-сервер</string>
+    <string name="picker_state_auto">АВТО · выбран: %1$s</string>
+    <string name="picker_choose_server">ВЫБЕРИТЕ СЕРВЕР</string>
+    <string name="picker_activate_description">Включить %1$s, %2$s</string>
+    <string name="picker_previous">‹ Пред.</string>
+    <string name="picker_next">След. ›</string>
+    <string name="picker_enable">Вкл</string>
+    <string name="picker_disable">Выкл</string>
+    <string name="picker_manage">Управление DNS-профилями ⚙</string>
+    <string name="picker_setup_manage">Разрешения / Управление ⚙</string>
+    <string name="picker_manage_description">Открыть приложение для добавления, изменения или удаления DNS-серверов</string>
+    <string name="picker_operation_failed">Частный DNS: %1$s</string>
+    <string name="widget_heading">ЧАСТНЫЙ DNS</string>
+    <string name="widget_status_setup">НУЖНА НАСТРОЙКА</string>
+    <string name="widget_status_active">АКТИВЕН</string>
+    <string name="widget_status_off">ВЫКЛ</string>
+    <string name="widget_status_other">ДРУГОЙ DNS</string>
+    <string name="widget_status_auto">АВТО</string>
+    <string name="widget_power_setup">НАСТРОИТЬ</string>
+    <string name="widget_power_disable">ВЫКЛЮЧИТЬ</string>
+    <string name="widget_power_enable">ВКЛЮЧИТЬ</string>
+    <string name="widget_power_use">ПРИМЕНИТЬ</string>
+    <string name="widget_power_short_off">ВЫКЛ</string>
+    <string name="widget_power_short_on">ВКЛ</string>
+    <string name="widget_power_short_use">ВКЛ</string>
+    <string name="widget_previous">◀ ПРЕД.</string>
+    <string name="widget_next">СЛЕД. ▶</string>
+    <string name="widget_mini_status_setup">НАСТР</string>
+    <string name="widget_mini_status_on">ВКЛ</string>
+    <string name="widget_mini_status_off">ВЫКЛ</string>
+    <string name="widget_mini_status_other">ДРУГ.</string>
+    <string name="widget_mini_status_auto">АВТО</string>
+    <string name="widget_profile_picker_label">%1$s  ▾</string>
+    <string name="widget_edit_description">Изменить DNS-серверы</string>
+    <string name="widget_toggle_description">Включить или выключить выбранный частный DNS-сервер</string>
+    <string name="widget_previous_description">Применить предыдущий DNS-сервер</string>
+    <string name="widget_next_description">Применить следующий DNS-сервер</string>
+    <string name="widget_mini_toggle_description">Включить или выключить частный DNS</string>
+    <string name="widget_picker_description">Выбрать DNS-профиль</string>
+    <string name="widget_position_preview">1 / 5 серверов</string>
+    <plurals name="widget_server_position">
+        <item quantity="one">%1$d / %2$d сервер</item>
+        <item quantity="few">%1$d / %2$d сервера</item>
+        <item quantity="many">%1$d / %2$d серверов</item>
+        <item quantity="other">%1$d / %2$d сервера</item>
+    </plurals>
+</resources>

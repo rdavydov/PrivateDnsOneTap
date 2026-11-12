@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Private DNS Switcher</string>
+    <string name="widget_name">Переключатель Private DNS</string>
+    <string name="widget_description">Виджет: включение DNS и переключение между серверами</string>
+    <string name="mini_widget_name">Private DNS · Мини (1×1)</string>
+    <string name="mini_widget_description">1×1: основная область переключает DNS, нижняя — открывает список серверов</string>
+    <string name="theme_system">Как в системе</string>
+    <string name="theme_light">Светлая</string>
+    <string name="theme_dark">Тёмная</string>
+    <string name="app_theme_title">Тема приложения</string>
+    <string name="widget_theme_title">Тема виджета</string>
+    <string name="theme_cancel">Отмена</string>
+    <string name="picker_widget_theme">Тема виджета: %1$s</string>
+    <string name="appearance_title">Настройки</string>
+    <string name="app_theme_current">Тема приложения: %1$s</string>
+    <string name="this_widget_theme_current">Тема этого виджета: %1$s</string>
+    <string name="widget_theme_hint">У каждого виджета своя тема. Нажмите его шестерёнку или нижнюю подпись мини-виджета и выберите «Тема виджета».</string>
+    <string name="permission_granted">Системное разрешение: ПОЛУЧЕНО</string>
+    <string name="permission_missing">Системное разрешение: НЕ ПОЛУЧЕНО. Выдайте его один раз через Shizuku или ADB ниже.</string>
+    <string name="permission_setup_title">Однократная выдача разрешения</string>
+    <string name="shizuku_help">Если Shizuku установлен, запустите его и предоставьте доступ кнопкой ниже. После выдачи системного разрешения приложение и виджеты работают без Shizuku.</string>
+    <string name="shizuku_grant">Выдать через Shizuku</string>
+    <string name="shizuku_granting">Выдача разрешения…</string>
+    <string name="shizuku_open">Открыть Shizuku</string>
+    <string name="shizuku_cannot_open">Не удалось открыть Shizuku. Откройте его из списка приложений.</string>
+    <string name="adb_setup_title">Или выдайте через ADB (Windows)</string>
+    <string name="widget_theme_unavailable">Этот виджет больше не существует.</string>
+    <string name="language_title">Язык приложения</string>
+    <string name="language_current">Язык: %1$s</string>
+    <string name="language_system">Как в системе</string>
+</resources>
